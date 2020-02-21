@@ -20,7 +20,7 @@ export const TodoState = ({ children }) => {
     clearError()
     try {
       const data = await Http.post(
-      'https://rntodoapp.firebaseio.com/todos.json',
+      'https://rntodoapp.firebaseio.com/todos.json',  //insert your firebase db path
       { title }
     )
     dispatch({ type: ADD_TODO, title, id: data.name })
@@ -45,7 +45,7 @@ export const TodoState = ({ children }) => {
           text: 'Удалить', 
           onPress: async () => {
             changeScreen(null)
-            await Http.delete(`https://rntodoapp.firebaseio.com/todos/${id}.json`)
+            await Http.delete(`https://rntodoapp.firebaseio.com/todos/${id}.json`) //insert your firebase db path
             dispatch({ type: REMOVE_TODO, id })
           }
         }
@@ -56,7 +56,7 @@ export const TodoState = ({ children }) => {
 
   const updateTodo = async (id, title) => {
     try {
-      await Http.patch(`https://rntodoapp.firebaseio.com/todos/${id}.json`, {id, title})
+      await Http.patch(`https://rntodoapp.firebaseio.com/todos/${id}.json`, {id, title}) //insert your firebase db path
       dispatch({ type: UPDATE_TODO, id, title })
     } catch(e) {
       showError('Что-то пошло не так..')
@@ -69,7 +69,7 @@ export const TodoState = ({ children }) => {
     showLoader()
     clearError()
       try {
-        const data = await Http.get('https://rntodoapp.firebaseio.com/todos.json')
+        const data = await Http.get('https://rntodoapp.firebaseio.com/todos.json') //insert your firebase db path
         const todos = Object.keys(data).map(key => ({ ...data[key], id: key }))
         dispatch({ type: FETCH_TODOS, todos })
     } catch(e) {
